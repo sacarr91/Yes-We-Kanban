@@ -11,29 +11,28 @@ const composeTask = () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="form login-form">
+                            <form class="form">
                                 <div class="form-group">
                                     <div>
-                                        <label for="email">Email Address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                        <label for="title">Task Title</label>
+                                        <input type="text" class="form-control" id="taskTitle" placeholder="Task Title">
                                     </div>
                                     <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                        <label for="password">Task Details</label>
+                                        <input type="text" class="form-control" id="taskDetails" placeholder="Enter Details">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary btn-login submit" id="login-btn">Log In</button>
+                            <button type="submit" class="btn btn-primary btn-login submit" id="taskSubmit">Add Task</button>
                         </div>
                     </div>
                 </div>
             </div>`;
-     cardDeck.innerHTML += card;
+     cardDeck.innerHTML += modalAdd;
     }
-}
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
