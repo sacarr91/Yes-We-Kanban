@@ -50,20 +50,20 @@
                 <label for="newTaskDetails">Task Description</label>
                 <textarea class="form-control" id="newTaskDetails" placeholder="Enter Details"></textarea>
               </div>
-            <label for="newTaskStatus">What is the status of this task?</label>
-            <select class="form-select" aria-label="Task current status" id="newTaskStatus" required>
-              <option value="Not Yet Started">Not Yet Started</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
+              <label for="newTaskStatus">What is the status of this task?</label>
+              <select class="form-select" aria-label="Task current status" id="newTaskStatus" required>
+                <option value="Not Yet Started">Not Yet Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
 
-            </select>
+              </select>
 
           </div>
           </form>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-login submit" id="taskSubmit">Add Task</button>
+            <button type="submit" class="btn btn-primary submit" id="taskSubmit">Add Task</button>
           </div>
         </div>
       </div>
@@ -79,6 +79,7 @@
           <div class="card-body bg-light">
             <div id="todo-cards">
               <!-- TO DO cards -->
+              
             </div>
           </div>
         </div>
@@ -122,8 +123,8 @@
 
   <script src="./assets/js/script.js"></script>
   <script>
-    $( "#datepicker" ).datepicker();
-    </script>
+    $("#datepicker").datepicker();
+  </script>
 </body>
 
 </html>

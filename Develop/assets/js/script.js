@@ -1,8 +1,10 @@
 // Retrieve tasks and nextId from localStorage
-localStorage.getItem("tasks") = null
+localStorage.getItem("tasks") === null
     ? localStorage.setItem("tasks", [])
-    : taskList = JSON.parse(localStorage.getItem("tasks"));
-localStorage.getItem("nextId") = null
+    // : taskList = JSON.parse(localStorage.getItem("tasks"));
+    : taskList = localStorage.getItem("tasks");
+
+localStorage.getItem("nextId") === null
     ? localStorage.setItem("nextId", 0)
     // : nextId = JSON.parse(localStorage.getItem("nextId"));
     : nextId = localStorage.getItem("nextId");
@@ -12,39 +14,54 @@ let newTaskTitleEl = document.getElementById("newTaskTitle");
 let newTaskDetailsEl = document.getElementById("newTaskDetails");
 let newTaskDueDateEl = document.getElementById("newTaskDueDate");
 let newTaskStatusEl = document.getElementById("newTaskStatus");
+let taskSubmitBtn = document.getElementById("taskSubmit");
 
+// Todo: create a function to generate a unique task id
+function generateTaskId() {
+    nextId++;
+    localStorage.setItem("nextId", nextId);
+    return nextId;
+}
 const composeTask = () => {
-    handleAddTask();
+    generateTaskId();
+    let newTaskItem = {
+        id: nextId,
+        title: newTaskTitleEl.value,
+        details: newTaskDetailsEl.value,
+        due: newTaskDueDateEl.value,
+        status: newTaskStatusEl.value
+    };
+    return newTaskItem;
 }
 
-    // Todo: create a function to handle adding a new task
-    function handleAddTask(event) {
-        generateTaskId();
-        let newTaskItem = {
-            id: nextId,
-            title: newTaskTitleEl.value,
-            details: newTaskDetailsEl.value,
-            due: newTaskDueDateEl.value,
-            status: newTaskStatusEl.value
-        };
-        taskList.push(newTaskItem);
-        localStorage.setItem("tasks", taskList);
-    }
+// Todo: create a function to handle adding a new task
+function handleAddTask(e) {
+    e.preventDefault();
+    let newTask = json.stringify(newTaskItem)
+    taskList.push(newTask);
+    localStorage.setItem("tasks", taskList);
+    createTaskCard(newTaskItem);
+}
 
-        // Todo: create a function to generate a unique task id
-        function generateTaskId() {
-            nextId++;
-            localStorage.setItem("nextId", nextId);
-            return nextId;
-        }
+
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-// HTML injection
-`${task.title}`
-`${task.details}`
-`${task.due}`
-`${task.status}`
+    const todoCards = document.getElementById("todo-cards");
+    // HTML injection
+    const card = `
+                <div class="card">
+                  <div class="card-header h5">
+                    ${task.title}
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-title">${task.details}</h6>
+                    <p class="card-text">${task.due}</p>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                  </div>
+                </div>`
+    todoCards.innerHTML += card;
+    // `${task.status}`
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -71,6 +88,8 @@ function handleDrop(event, ui) { // handle MOVE
 $(document).ready(function () {
     renderTaskList();
     addTaskBtn.addEventListener("click", composeTask);
+    taskSubmitBtn.addEventListener("click", handleAddTask);
+
 });
 
 dayjs().format()
