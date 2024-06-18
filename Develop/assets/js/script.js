@@ -16,6 +16,14 @@ let newTaskDueDateEl = document.getElementById("newTaskDueDate");
 let newTaskStatusEl = document.getElementById("newTaskStatus");
 let taskSubmitBtn = document.getElementById("taskSubmit");
 
+let newTaskItem = {
+    id: nextId,
+    title: newTaskTitleEl.value,
+    details: newTaskDetailsEl.value,
+    due: newTaskDueDateEl.value,
+    status: newTaskStatusEl.value
+};
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
     nextId++;
@@ -24,23 +32,24 @@ function generateTaskId() {
 }
 const composeTask = () => {
     generateTaskId();
-    let newTaskItem = {
+    
+}
+
+// Todo: create a function to handle adding a new task
+function handleAddTask(e) {
+    e.preventDefault();
+    newTaskItem;
+    newTaskItem = {
         id: nextId,
         title: newTaskTitleEl.value,
         details: newTaskDetailsEl.value,
         due: newTaskDueDateEl.value,
         status: newTaskStatusEl.value
     };
-    return newTaskItem;
-}
-
-// Todo: create a function to handle adding a new task
-function handleAddTask(e) {
-    e.preventDefault();
-    let newTask = json.stringify(newTaskItem)
-    taskList.push(newTask);
-    localStorage.setItem("tasks", taskList);
     createTaskCard(newTaskItem);
+    taskList.push(newTaskItem);
+    JSON.stringify(taskList);
+    localStorage.setItem("tasks", taskList);
 }
 
 
@@ -70,7 +79,8 @@ function createTaskCard(task) {
 // make cards draggable: jquery widget -- UI interactions
 function renderTaskList() {
     //make columns & cards appear from localStorage
-
+    // taskList = JSON.parse(localStorage.getItem("tasks"));
+    
 }
 
 // Todo: create a function to handle deleting a task
