@@ -1,11 +1,11 @@
-let taskList = [];
+let tasksArr = [];
 // Retrieve tasks and nextId from localStorage
 localStorage.getItem("tasks") === null
-    ? localStorage.setItem("tasks", (JSON.stringify(taskList)))
+    ? localStorage.setItem("tasks", (JSON.stringify(tasksArr)))
     : console.log(localStorage.getItem("tasks"));
 
 localStorage.getItem("nextId") === null
-    ? localStorage.setItem("nextId", 1)
+    ? localStorage.setItem("nextId", 0)
     // : nextId = JSON.parse(localStorage.getItem("nextId"));
     : console.log("nextId is established");
 
@@ -32,11 +32,12 @@ function generateTaskId() {
     nextId++;
     localStorage.setItem("nextId", nextId);
     return nextId;
-}
+};
+
 const composeTask = () => {
     generateTaskId();
     handleAddTask();
-}
+};
 
 // IN PROGRESS: create a function to handle adding a new task
 function handleAddTask() {
@@ -49,13 +50,16 @@ function handleAddTask() {
         status: newTaskStatusEl.value
     };
     createTaskCard(newTaskItem);
-    taskList.push(newTaskItem);
-    JSON.stringify(taskList);
-    localStorage.setItem("tasks", taskList);
-
+    updateStoredArray(newTaskItem);
 }
 
-
+const updateStoredArray = (newItem) => {
+    let tasksJSON = localStorage.getItem("tasks")
+    tasksArr = JSON.parse(tasksJSON);
+    tasksArr.push(newItem);
+    tasksJSON = JSON.stringify(tasksArr);
+    localStorage.setItem("tasks", tasksJSON);
+}
 
 // 99% DONE: create a function to create a task card
 function createTaskCard(task) {
@@ -73,8 +77,7 @@ function createTaskCard(task) {
                   </div>
                 </div>`
     todoCards.innerHTML += card;
-    let deleteTaskBtn = document.querySelectorAll("#deleteTaskBtn");
-    deleteTaskBtn.addEventListener("click", handleDeleteTask);
+    addListeners();
 }
 
 // Todo: create a function to render the task list and make cards draggable
