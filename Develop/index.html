@@ -35,7 +35,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body p-4">
-            <form class="form" id="myForm">
+            <form class="form" id="myForm" autocomplete="off">
               <div class="row mb-2">
                 <div class="form-group col-6">
                   <label for="newTaskTitle">Task Title</label>
@@ -57,9 +57,9 @@
                 <option value="Completed">Completed</option>
 
               </select>
-
+            </form>
           </div>
-          </form>
+
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -71,15 +71,15 @@
     <!-- MODAL END -->
 
     <div class="row swim-lanes text-center justify-content-between">
-      <div class="col-12 col-lg-4 d-flex">
+      <div class="col-12 col-lg-4 d-flex ">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
           <div class="card-header bg-white">
             <h2 class="card-title mb-1">To Do</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="todo-cards">
+            <div id="todo-cards" class="droppable">
               <!-- TO DO cards -->
-              
+
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
             <h2 class="card-title mb-1">In Progress</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="in-progress-cards">
+            <div id="in-progress-cards" class="droppable">
               <!-- IN PROGRESS cards -->
             </div>
           </div>
@@ -104,7 +104,7 @@
             <h2 class="card-title mb-1">Done</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="done-cards">
+            <div id="done-cards" class="droppable">
               <!-- COMPLETED cards -->
             </div>
           </div>
@@ -122,9 +122,6 @@
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
 
   <script src="./assets/js/script.js"></script>
-  <script>
-    $("#newTaskDueDate").datepicker();
-  </script>
 </body>
 
 </html>

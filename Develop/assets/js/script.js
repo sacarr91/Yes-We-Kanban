@@ -25,8 +25,6 @@ let newTaskItem = {
     status: newTaskStatusEl.value
 };
 
-const myForm = document.getElementById("myForm");
-
 // DONE: create a function to generate a unique task id
 function generateTaskId() {
     nextId++;
@@ -36,10 +34,11 @@ function generateTaskId() {
 
 const composeTask = () => {
     handleAddTask();
+    $("#myForm").trigger("reset"); //thanks to Zach Polof for this line of code!
     generateTaskId();
 };
 
-// IN PROGRESS: create a function to handle adding a new task
+// DONE: create a function to handle adding a new task
 function handleAddTask() {
     newTaskItem;
     newTaskItem = {
@@ -51,7 +50,7 @@ function handleAddTask() {
     };
     createTaskCard(newTaskItem);
     addToStoredArray(newTaskItem);
-}
+};
 
 const addToStoredArray = (newItem) => {
     let tasksJSON = localStorage.getItem("tasks")
@@ -59,14 +58,14 @@ const addToStoredArray = (newItem) => {
     tasksArr.push(newItem);
     tasksJSON = JSON.stringify(tasksArr);
     localStorage.setItem("tasks", tasksJSON);
-}
+};
 
-// 99% DONE: create a function to create a task card
+// DONE: create a function to create a task card
 function createTaskCard(task) {
-    const todoCards = document.getElementById("todo-cards");
-    // HTML injection
+
+    // HTML for injection
     const card = `
-                <div class="card" id="taskCard${task.id}">
+                <div class="card draggable" id="taskCard${task.id}">
                   <div class="card-header h5">
                     ${task.title}
                   </div>
@@ -76,13 +75,28 @@ function createTaskCard(task) {
                     <a href="#" class="btn btn-danger" id="deleteTaskBtn" taskId="${task.id}">Delete</a>
                   </div>
                 </div>`
-    todoCards.innerHTML += card;
-    addListeners();
-}
+    // sort into appropriate column on send
+    sortCard(task, card);
+    // ensure listener is added to new delete button
+    delBtnListeners();
+};
+
+const sortCard = (task, card) => {
+    const todoCards = document.getElementById("todo-cards");
+    const inProgressCards = document.getElementById("in-progress-cards");
+    const completedCards = document.getElementById("done-cards");
+
+    if (task.status == "In Progress") {
+        inProgressCards.innerHTML += card;
+    } else if (task.status == "Completed") {
+        completedCards.innerHTML += card;
+    } else {
+        todoCards.innerHTML += card;
+    };
+};
 
 // Todo: create a function to render the task list and make cards draggable
-// pull tasks from location
-// add current tasks
+
 // make cards draggable: jquery widget -- UI interactions
 function renderTaskList() {
     let tasksJSON = localStorage.getItem("tasks")
@@ -95,9 +109,6 @@ function renderTaskList() {
             createTaskCard(task);
         }
     };
-    //make columns & cards appear from localStorage
-    // taskList = JSON.parse(localStorage.getItem("tasks"));
-    // `${task.status}` still exists
 };
 
 // DONE: create a function to handle deleting a task
@@ -106,7 +117,7 @@ function handleDeleteTask(event) {
     let deleteEl = document.getElementById(`taskCard${deleteId}`);
     deleteEl.remove();
     removeFromStoredArray(deleteId);
-}
+};
 
 const removeFromStoredArray = (deleteId) => {
     let tasksJSON = localStorage.getItem("tasks")
@@ -114,7 +125,7 @@ const removeFromStoredArray = (deleteId) => {
     delete tasksArr[deleteId];
     tasksJSON = JSON.stringify(tasksArr);
     localStorage.setItem("tasks", tasksJSON);
-}
+};
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) { // handle MOVE
@@ -125,19 +136,15 @@ function handleDrop(event, ui) { // handle MOVE
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList();
-    addListeners();
-
-    // jQuery date picker script is in HTML code
+    taskSubmitBtn.addEventListener("click", composeTask);
+    $("#newTaskDueDate").datepicker();
 });
 
-const addListeners = () => {
-    taskSubmitBtn.addEventListener("click", composeTask);
-
+const delBtnListeners = () => {
     let deleteBtns = document.querySelectorAll("#deleteTaskBtn");
     deleteBtns.forEach(button => {
         button.addEventListener("click", handleDeleteTask);
     });
-
 };
 
 dayjs().format()
