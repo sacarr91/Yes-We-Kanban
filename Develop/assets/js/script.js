@@ -1,8 +1,8 @@
+let taskList = [];
 // Retrieve tasks and nextId from localStorage
 localStorage.getItem("tasks") === null
-    ? localStorage.setItem("tasks", [])
-    // : taskList = JSON.parse(localStorage.getItem("tasks"));
-    : taskList = localStorage.getItem("tasks");
+    ? console.log("No tasks yet")
+    : console.log(localStorage.getItem("tasks"));
 
 localStorage.getItem("nextId") === null
     ? localStorage.setItem("nextId", 0)
@@ -32,12 +32,11 @@ function generateTaskId() {
 }
 const composeTask = () => {
     generateTaskId();
-    
+    handleAddTask();
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(e) {
-    e.preventDefault();
+function handleAddTask() {
     newTaskItem;
     newTaskItem = {
         id: nextId,
@@ -97,8 +96,7 @@ function handleDrop(event, ui) { // handle MOVE
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList();
-    addTaskBtn.addEventListener("click", composeTask);
-    taskSubmitBtn.addEventListener("click", handleAddTask);
+    taskSubmitBtn.addEventListener("click", composeTask);
 
 });
 
