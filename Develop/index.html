@@ -22,10 +22,11 @@
   </header>
   <div class="container">
     <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTaskModal" id="addTaskBtn">Add
+        Task</button>
     </div>
     <!-- Modal with form to add tasks -->
-    <div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="newTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="formModal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -47,19 +48,18 @@
               </div>
               <div id="whenIsNewDue">
                 <label for="newDueDateHeader">Due Date</label>
-                
->>>>>>>>>>>>>>>>>>>>>>>>>>>DAY.JS CODE NEEDED HERE
+
+                >>>>>>>>>>>>>>>>>>>>>>>>>>>DAY.JS CODE NEEDED HERE
               </div>
               <div>
-                <label for="newTaskStatus">What is the status of this task?</label>        
-                <select class="form-select" aria-label="Task current status"
-                  id="newTaskStatus" required>
+                <label for="newTaskStatus">What is the status of this task?</label>
+                <select class="form-select" aria-label="Task current status" id="newTaskStatus" required>
                   <option value="Not Yet Started">Not Yet Started</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Completed">Completed</option>
-                  
+
                 </select>
-          
+
               </div>
             </form>
           </div>
