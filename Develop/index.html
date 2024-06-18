@@ -25,6 +25,53 @@
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
+    <!-- STEPH -->
+    <div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="formModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="formModalLabel">Log In</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="form">
+              <div class="form-group">
+                <div>
+                  <label for="newTaskTitle">Task Title</label>
+                  <input type="text" class="form-control" id="newTaskTitle" placeholder="Task Title" required>
+                </div>
+                <div class="form-group">
+                  <label for="newTaskDetails">Task Details</label>
+                  <input type="text" class="form-control" id="newTaskDetails" placeholder="Enter Details">
+                </div>
+              </div>
+              <div id="whenIsNewDue">
+                <label for="newDueDateHeader">Due Date</label>
+                
+>>>>>>>>>>>>>>>>>>>>>>>>>>>DAY.JS CODE NEEDED HERE
+              </div>
+              <div>
+                <label for="newTaskStatus">What is the status of this task?</label>        
+                <select class="form-select" aria-label="Task current status"
+                  id="newTaskStatus" required>
+                  <option value="Not Yet Started">Not Yet Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                  
+                </select>
+          
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-login submit" id="taskSubmit">Add Task</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END -->
     <div id="dialog" title="Dialog">
       <div class="container">
         <div class="row">

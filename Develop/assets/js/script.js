@@ -2,8 +2,12 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+let newTaskTitleEl = document.getElementById("newTaskTitle");
+let newTaskDetailsEl = document.getElementById("newTaskDetails");
+let newTaskDueDateEl = document.getElementById("newTaskDueDate");
+
 const composeTask = () => {
-     const modalAdd = `<div class="modal fade" id="staticBackdrop-login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    const modalAdd = `<div class="modal fade" id="staticBackdrop-login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -22,6 +26,19 @@ const composeTask = () => {
                                         <input type="text" class="form-control" id="taskDetails" placeholder="Enter Details">
                                     </div>
                                 </div>
+                                <div id="setting">
+              <h3 class="col-5" id="setting-header">
+                Lesson Location
+              </h3>
+              <select name="lesson_setting" class="form-select text-muted mb-3" aria-label="Default select example"
+                id="lesson-setting-list" required>
+                <option value="">Select lesson setting</option>
+                <option value="inHome">✅In Person 🏠Willing to Travel to Student's Home</option>
+                <option value="inStudio">✅Teacher's Studio Only / ⛔Travel ⛔Virtual</option>
+                <option value="virtual">✅Virtual Only / ⛔In-Person</option>
+                <option value="hybrid">✅Virtual ✅In Person</option>
+              </select>
+            </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -31,8 +48,8 @@ const composeTask = () => {
                     </div>
                 </div>
             </div>`;
-     cardDeck.innerHTML += modalAdd;
-    }
+    cardDeck.innerHTML += modalAdd;
+}
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
