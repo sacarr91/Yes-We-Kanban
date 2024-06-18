@@ -5,50 +5,15 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 let newTaskTitleEl = document.getElementById("newTaskTitle");
 let newTaskDetailsEl = document.getElementById("newTaskDetails");
 let newTaskDueDateEl = document.getElementById("newTaskDueDate");
+let newTaskStatusEl = document.getElementById("newTaskStatus");
 
 const composeTask = () => {
-    const modalAdd = `<div class="modal fade" id="staticBackdrop-login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Log In</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form">
-                                <div class="form-group">
-                                    <div>
-                                        <label for="title">Task Title</label>
-                                        <input type="text" class="form-control" id="taskTitle" placeholder="Task Title">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Task Details</label>
-                                        <input type="text" class="form-control" id="taskDetails" placeholder="Enter Details">
-                                    </div>
-                                </div>
-                                <div id="setting">
-              <h3 class="col-5" id="setting-header">
-                Lesson Location
-              </h3>
-              <select name="lesson_setting" class="form-select text-muted mb-3" aria-label="Default select example"
-                id="lesson-setting-list" required>
-                <option value="">Select lesson setting</option>
-                <option value="inHome">✅In Person 🏠Willing to Travel to Student's Home</option>
-                <option value="inStudio">✅Teacher's Studio Only / ⛔Travel ⛔Virtual</option>
-                <option value="virtual">✅Virtual Only / ⛔In-Person</option>
-                <option value="hybrid">✅Virtual ✅In Person</option>
-              </select>
-            </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary btn-login submit" id="taskSubmit">Add Task</button>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    cardDeck.innerHTML += modalAdd;
+let newTaskItem = {
+    title: newTaskTitleEl.value,
+    details: newTaskDetailsEl.value,
+    due: newTaskDueDateEl.value,
+    status: newTaskStatusEl.value
+}
 }
 
 // Todo: create a function to generate a unique task id
