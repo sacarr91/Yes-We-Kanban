@@ -96,7 +96,7 @@ function handleDeleteTask(event) {
     let deleteId = event.target.getAttribute("taskId");
     let deleteEl = document.getElementById(`taskCard${deleteId}`);
     deleteEl.remove();
-    removeFromStoredArray(); 
+    removeFromStoredArray(deleteId); 
 }
 
 const removeFromStoredArray = (deleteId) => {
