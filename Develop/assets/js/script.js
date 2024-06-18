@@ -85,18 +85,27 @@ function createTaskCard(task) {
 // add current tasks
 // make cards draggable: jquery widget -- UI interactions
 function renderTaskList() {
+    let tasksJSON = localStorage.getItem("tasks")
+    tasksArr = JSON.parse(tasksJSON);
+    for (let i = 0; i < tasksArr.length; i++) {
+        const task = tasksArr[i];
+        if (task === null) {
+            console.log("deleted task")
+        } else {
+            createTaskCard(task);
+        }
+    };
     //make columns & cards appear from localStorage
     // taskList = JSON.parse(localStorage.getItem("tasks"));
     // `${task.status}` still exists
-}
+};
 
-// TODO: create a function to handle deleting a task
+// DONE: create a function to handle deleting a task
 function handleDeleteTask(event) {
-    //delete card by ID taskCard${task.id}
     let deleteId = event.target.getAttribute("taskId");
     let deleteEl = document.getElementById(`taskCard${deleteId}`);
     deleteEl.remove();
-    removeFromStoredArray(deleteId); 
+    removeFromStoredArray(deleteId);
 }
 
 const removeFromStoredArray = (deleteId) => {
@@ -106,6 +115,7 @@ const removeFromStoredArray = (deleteId) => {
     tasksJSON = JSON.stringify(tasksArr);
     localStorage.setItem("tasks", tasksJSON);
 }
+
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) { // handle MOVE
     //update status of task
