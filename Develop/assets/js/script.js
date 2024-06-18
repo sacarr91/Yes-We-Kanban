@@ -35,8 +35,8 @@ function generateTaskId() {
 };
 
 const composeTask = () => {
-    generateTaskId();
     handleAddTask();
+    generateTaskId();
 };
 
 // IN PROGRESS: create a function to handle adding a new task
@@ -50,10 +50,10 @@ function handleAddTask() {
         status: newTaskStatusEl.value
     };
     createTaskCard(newTaskItem);
-    updateStoredArray(newTaskItem);
+    addToStoredArray(newTaskItem);
 }
 
-const updateStoredArray = (newItem) => {
+const addToStoredArray = (newItem) => {
     let tasksJSON = localStorage.getItem("tasks")
     tasksArr = JSON.parse(tasksJSON);
     tasksArr.push(newItem);
@@ -93,12 +93,19 @@ function renderTaskList() {
 // TODO: create a function to handle deleting a task
 function handleDeleteTask(event) {
     //delete card by ID taskCard${task.id}
-    let deleteId = event.target.getAttribute(taskId);
-    delete taskList[deleteId];
+    let deleteId = event.target.getAttribute("taskId");
     let deleteEl = document.getElementById(`taskCard${deleteId}`);
     deleteEl.remove();
+    removeFromStoredArray(); 
 }
 
+const removeFromStoredArray = (deleteId) => {
+    let tasksJSON = localStorage.getItem("tasks")
+    tasksArr = JSON.parse(tasksJSON);
+    delete tasksArr[deleteId];
+    tasksJSON = JSON.stringify(tasksArr);
+    localStorage.setItem("tasks", tasksJSON);
+}
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) { // handle MOVE
     //update status of task
