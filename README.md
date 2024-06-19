@@ -1,7 +1,7 @@
 # Yes We Kanban! A Task Board
 
 ## Link to Application
-
+https://sacarr91.github.io/Yes-We-Kanban/
 
 ## Description
 
@@ -55,13 +55,13 @@ GIVEN a task board to manage a project
 
 ### Deployment: 32%
 
-- [ ] Application deployed at live URL
+- [x] Application deployed at live URL
 
 - [ ] Application loads with no errors
 
 - [ ] Application GitHub URL submitted
 
-- [ ] GitHub repo contains application code
+- [x] GitHub repo contains application code
 
 ### Application Quality: 15%
 
