@@ -147,7 +147,6 @@ function handleDrop(event, draggable) { // handle MOVE
 $(document).ready(function () {
     renderTaskList();
     taskSubmitBtn.addEventListener("click", composeTask);
-    $("#newTaskDueDate").datepicker();
     $(".droppable").droppable({tolerance: "fit"});
     // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
     
