@@ -7,10 +7,11 @@ body {
   min-height: 60vh;
 }
 
-.task-card {
+.draggable {
   margin: 0 auto;
+  z-index: 2;
 }
 
-.task-card:hover {
+.draggable:hover {
   cursor: grab;
 }

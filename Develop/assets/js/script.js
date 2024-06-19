@@ -49,7 +49,7 @@ function handleAddTask() {
         status: newTaskStatusEl.value
     };
     createTaskCard(newTaskItem);
-    
+
     addToStoredArray(newTaskItem);
 };
 
@@ -66,7 +66,7 @@ function createTaskCard(task) {
 
     // HTML for injection
     const card = `
-                <div class="card draggable" id="taskCard${task.id}">
+                <div class="card draggable" id="taskCard${task.id}" taskId="${task.id}">
                   <div class="card-header h5">
                     ${task.title}
                   </div>
@@ -113,7 +113,7 @@ function renderTaskList() {
 
     $(function () {
         $(".draggable").draggable();
-      });
+    });
 };
 
 // DONE: create a function to handle deleting a task
@@ -132,8 +132,13 @@ const removeFromStoredArray = (deleteId) => {
     localStorage.setItem("tasks", tasksJSON);
 };
 
+function handleDrag() {
+
+}
 // Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, ui) { // handle MOVE
+function handleDrop(event, draggable) { // handle MOVE
+
+
     //update status of task
     // ${task.status}
 }
@@ -143,6 +148,9 @@ $(document).ready(function () {
     renderTaskList();
     taskSubmitBtn.addEventListener("click", composeTask);
     $("#newTaskDueDate").datepicker();
+    $(".droppable").droppable({tolerance: "fit"});
+    // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
+    
 });
 
 const delBtnListeners = () => {
