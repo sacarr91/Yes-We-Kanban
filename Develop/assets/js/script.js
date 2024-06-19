@@ -49,6 +49,7 @@ function handleAddTask() {
         status: newTaskStatusEl.value
     };
     createTaskCard(newTaskItem);
+    
     addToStoredArray(newTaskItem);
 };
 
@@ -109,6 +110,10 @@ function renderTaskList() {
             createTaskCard(task);
         }
     };
+
+    $(function () {
+        $(".draggable").draggable();
+      });
 };
 
 // DONE: create a function to handle deleting a task
