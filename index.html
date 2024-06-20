@@ -119,8 +119,16 @@
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
-<script>dayjs.extend(relativeTime);</script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/isBetween.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/toObject.js"></script>
+
+  <script>dayjs.extend(window.dayjs_plugin_relativeTime)</script>
+  <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
+  <script>dayjs.extend(window.dayjs_plugin_isBetween)</script>
+  <script>dayjs.extend(window.dayjs_plugin_toObject)</script>
+
   <script>
     $("#newTaskDueDate").datepicker();
   </script>

@@ -96,9 +96,34 @@ const sortCard = (task, card) => {
     };
 };
 
-// Todo: create a function to render the task list and make cards draggable
+const delBtnListeners = () => {
+    let deleteBtns = document.querySelectorAll("#deleteTaskBtn");
+    deleteBtns.forEach(button => {
+        button.addEventListener("click", handleDeleteTask);
+    });
+};
 
-// make cards draggable: jquery widget -- UI interactions
+const colorCode = (task) => {
+    let taskDue = dayjs(`${task.due}`, "MM-DD-YYYY");
+    let todayObject = dayjs().toObject();
+    let dueObject = dayjs(taskDue).toObject();
+    let 
+    
+    console.log(dueObject.date);
+    console.log(dueObject.months);
+    console.log(todayObject);
+    console.log(todayObject.date);
+    console.log(todayObject.months);
+    let [dd, dm, td, tm] = [dueObject.date, dueObject.months, todayObject.date, todayObject.months];
+    if (dueObject.date - todayObject.date <= 2) && {
+        console.log("less than equal to 2");
+    } else if
+    //figure out now, convert STRING date to something usable
+};
+
+
+
+// DONE: create a function to render the task list and make cards draggable
 function renderTaskList() {
     let tasksJSON = localStorage.getItem("tasks")
     tasksArr = JSON.parse(tasksJSON);
@@ -110,11 +135,13 @@ function renderTaskList() {
             createTaskCard(task);
         }
     };
-
-    $(function () {
-        $(".draggable").draggable();
-    });
+    handleDrag();
 };
+
+function handleDrag() {
+    $(".draggable").draggable();
+};
+
 
 // DONE: create a function to handle deleting a task
 function handleDeleteTask(event) {
@@ -132,32 +159,25 @@ const removeFromStoredArray = (deleteId) => {
     localStorage.setItem("tasks", tasksJSON);
 };
 
-function handleDrag() {
 
-}
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, draggable) { // handle MOVE
 
 
     //update status of task
     // ${task.status}
-}
+};
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList();
     taskSubmitBtn.addEventListener("click", composeTask);
-    $(".droppable").droppable({tolerance: "fit"});
+    $(".droppable").droppable({ tolerance: "fit" });
     // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
-    
+
 });
 
-const delBtnListeners = () => {
-    let deleteBtns = document.querySelectorAll("#deleteTaskBtn");
-    deleteBtns.forEach(button => {
-        button.addEventListener("click", handleDeleteTask);
-    });
-};
+
 
 dayjs().format();
 
