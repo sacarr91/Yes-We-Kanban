@@ -78,6 +78,7 @@ function createTaskCard(task) {
                 </div>`
     // sort into appropriate column on send
     sortCard(task, card);
+    colorCode(task, card);
     // ensure listener is added to new delete button
     delBtnListeners();
 };
@@ -103,81 +104,123 @@ const delBtnListeners = () => {
     });
 };
 
-const colorCode = (task) => {
+const colorCode = (task, card) => {
     let taskDue = dayjs(`${task.due}`, "MM-DD-YYYY");
     let todayObject = dayjs().toObject();
     let dueObject = dayjs(taskDue).toObject();
-    let 
-    
-    console.log(dueObject.date);
-    console.log(dueObject.months);
-    console.log(todayObject);
-    console.log(todayObject.date);
-    console.log(todayObject.months);
-    let [dd, dm, td, tm] = [dueObject.date, dueObject.months, todayObject.date, todayObject.months];
-    if (dueObject.date - todayObject.date <= 2) && {
-        console.log("less than equal to 2");
-    } else if
-    //figure out now, convert STRING date to something usable
-};
+    let [dd, dm, dy, td, tm, ty] = [dueObject.date, dueObject.months, dueObject.years, todayObject.date, todayObject.months, todayObject.years];
 
+    card = document.getElementById(`${taskCard.id}`);
+    const future = () => $(card).addClass("future");
+    const dueSoon = () => $(card).addClass("dueSoon");
+    const dueToday = () => $(card).addClass("dueToday");
+    const overdue = () => $(card).addClass("overdue");
 
+    // PREVIOUS YEAR
+    if (dueObject == todayObject) {
+        dueToday();
+    } else if ((dy - ty) < 0) {
+        overdue();
+    // DISTANT YEAR
+    } else if ((dy - ty) > 1) {
+        future();
 
-// DONE: create a function to render the task list and make cards draggable
-function renderTaskList() {
-    let tasksJSON = localStorage.getItem("tasks")
-    tasksArr = JSON.parse(tasksJSON);
-    for (let i = 0; i < tasksArr.length; i++) {
-        const task = tasksArr[i];
-        if (task === null) {
-            console.log("deleted task")
-        } else {
-            createTaskCard(task);
-        }
+    // NEXT YEAR
+    } else if ((dy - ty) == 1) {
+
+        // DEC -> JAN
+        if ((dm == 1) && (tm == 12)) {
+            // 30th -> 1st || 31st -> 2nd
+            if (((td >= 30) && (dd == 1)) 
+                || ((td == 31) && (dd <= 2))) {
+                dueSoon();
+            } else {
+                future();
+            };
+        };
+
+    // THIS YEAR
+    } else { // dy - ty = 0...same year, move on to months
+
+        // PREVIOUS MONTH
+        if (dm < tm) {
+            overdue();
+
+            // NEXT MONTH
+        } else if (dm == (tm + 1)) {
+            "one month apart...check for dates"
+
+            // THIS MONTH
+        } else if (dm == tm) {
+            //PREVIOUS DAY
+            if ((dd - td) <= 0) {
+                overdue();
+            } else if (((dd - td) <= 2) && ((dd - td) > 0)) {
+                dueSoon();
+                // DISTANT MONTH
+            } else {
+                future();
+            };
+
+        };
+
     };
-    handleDrag();
-};
 
-function handleDrag() {
-    $(".draggable").draggable();
-};
+        // DONE: create a function to render the task list and make cards draggable
+        function renderTaskList() {
+            let tasksJSON = localStorage.getItem("tasks")
+            tasksArr = JSON.parse(tasksJSON);
+            for (let i = 0; i < tasksArr.length; i++) {
+                const task = tasksArr[i];
+                if (task === null) {
+                    console.log("deleted task")
+                } else {
+                    createTaskCard(task);
+                }
+            };
+            handleDrag();
+        };
 
-
-// DONE: create a function to handle deleting a task
-function handleDeleteTask(event) {
-    let deleteId = event.target.getAttribute("taskId");
-    let deleteEl = document.getElementById(`taskCard${deleteId}`);
-    deleteEl.remove();
-    removeFromStoredArray(deleteId);
-};
-
-const removeFromStoredArray = (deleteId) => {
-    let tasksJSON = localStorage.getItem("tasks")
-    tasksArr = JSON.parse(tasksJSON);
-    delete tasksArr[deleteId];
-    tasksJSON = JSON.stringify(tasksArr);
-    localStorage.setItem("tasks", tasksJSON);
-};
+        function handleDrag() {
+            $(".draggable").draggable();
+        };
 
 
-// Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, draggable) { // handle MOVE
+        // DONE: create a function to handle deleting a task
+        function handleDeleteTask(event) {
+            let deleteId = event.target.getAttribute("taskId");
+            let deleteEl = document.getElementById(`taskCard${deleteId}`);
+            deleteEl.remove();
+            removeFromStoredArray(deleteId);
+        };
+
+        const removeFromStoredArray = (deleteId) => {
+            let tasksJSON = localStorage.getItem("tasks")
+            tasksArr = JSON.parse(tasksJSON);
+            delete tasksArr[deleteId];
+            tasksJSON = JSON.stringify(tasksArr);
+            localStorage.setItem("tasks", tasksJSON);
+        };
 
 
-    //update status of task
-    // ${task.status}
-};
-
-// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-$(document).ready(function () {
-    renderTaskList();
-    taskSubmitBtn.addEventListener("click", composeTask);
-    $(".droppable").droppable({ tolerance: "fit" });
-    // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
-
-});
+        // Todo: create a function to handle dropping a task into a new status lane
+        function handleDrop(event, draggable) { // handle MOVE
 
 
+            //update status of task
+            // ${task.status}
+        };
 
-dayjs().format();
+        // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+        $(document).ready(function () {
+            renderTaskList();
+            taskSubmitBtn.addEventListener("click", composeTask);
+            $(".droppable").droppable({ tolerance: "fit" });
+            // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
+
+        });
+
+
+
+        dayjs().format();
 
