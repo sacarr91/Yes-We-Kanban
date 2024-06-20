@@ -66,7 +66,7 @@ function createTaskCard(task) {
 
     // HTML for injection
     const card = `
-                <div class="card draggable" id="taskCard${task.id}" taskId="${task.id}">
+                <div class="card mb-2 draggable" id="taskCard${task.id}" taskId="${task.id}">
                   <div class="card-header h5">
                     ${task.title}
                   </div>
@@ -199,7 +199,7 @@ function renderTaskList() {
     for (let i = 0; i < tasksArr.length; i++) {
         const task = tasksArr[i];
         if (task === null) {
-            console.log("deleted task")
+            console.log("deleted task(s)")
         } else {
             createTaskCard(task);
         }
@@ -208,7 +208,7 @@ function renderTaskList() {
 };
 
 function handleDrag() {
-    $(".draggable").draggable();
+    $(".draggable").draggable(({ revert: "invalid" }));
 };
 
 
@@ -230,19 +230,32 @@ const removeFromStoredArray = (deleteId) => {
 
 
 // Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, draggable) { // handle MOVE
+function setDropZone(event, draggable) {
+    $(".droppable").droppable({
+        tolerance: "fit",
+        accept: ".draggable",
+        classes: {
+            "ui-droppable-active": "custom-state-active"
+        },
+        drop: handleDrop()
+    });
+};
 
+function handleDrop(item) { // handle MOVE
+    $("<ul class='gallery ui-helper-reset'/>").appendTo($`#${item.status}`);
 
     //update status of task
     // ${task.status}
+
+    sortCard();
 };
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList();
     taskSubmitBtn.addEventListener("click", composeTask);
-    $(".droppable").droppable({ tolerance: "fit" });
-    // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
+    handleDrop();
+
 
 });
 

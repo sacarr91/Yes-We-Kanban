@@ -43,7 +43,7 @@ GIVEN a task board to manage a project
 <br>THEN the saved tasks persist
 
 ## Screenshot
-[screenshot of deployed application]
+![Screenshot of deployed application](./Assets/images/Yes%20We%20Kanban.png "Yes We Kanban screenshot")
 
 ## Grading Requirements
 
@@ -51,15 +51,15 @@ GIVEN a task board to manage a project
 
 - [ ] Satisfies all of the above acceptance criteria plus the following:
 
-  * - [ ] Uses the Day.js library to work with dates
+  * - [x] Uses the Day.js library to work with dates
 
 ### Deployment: 32%
 
 - [x] Application deployed at live URL
 
-- [ ] Application loads with no errors
+- [x] Application loads with no errors
 
-- [ ] Application GitHub URL submitted
+- [x] Application GitHub URL submitted
 
 - [x] GitHub repo contains application code
 
@@ -81,7 +81,7 @@ GIVEN a task board to manage a project
 
 - [x] Repository contains multiple descriptive commit messages
 
-- [ ] Repository contains quality README file with: 
+- [x] Repository contains quality README file with: 
 - - [x] description, 
-- - [ ] screenshot, and 
-- - [ ] link to deployed application
+- - [x] screenshot, and 
+- - [x] link to deployed application
