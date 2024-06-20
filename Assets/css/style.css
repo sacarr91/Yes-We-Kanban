@@ -22,16 +22,16 @@ body {
 }
 
 .dueSoon {
-background-color: #ffc107;
+background-color: rgb(248, 220, 63);
 color: black;
 }
 
 .dueToday{
 background-color: salmon;
-color: red;
+color: rgb(255, 230, 0);
 }
 
 .overdue{
 background-color: darkred;
-color: antiquewhite;
+color: pink;
 }
