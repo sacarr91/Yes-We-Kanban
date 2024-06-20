@@ -111,116 +111,118 @@ const colorCode = (task, card) => {
     let [dd, dm, dy, td, tm, ty] = [dueObject.date, dueObject.months, dueObject.years, todayObject.date, todayObject.months, todayObject.years];
 
     card = document.getElementById(`${taskCard.id}`);
-    const future = () => $(card).addClass("future");
-    const dueSoon = () => $(card).addClass("dueSoon");
-    const dueToday = () => $(card).addClass("dueToday");
-    const overdue = () => $(card).addClass("overdue");
+    const future = () => $(card).removeClass("dueSoon dueToday overdue").addClass("future");
+    const dueSoon = () => $(card).removeClass("future dueToday overdue").addClass("dueSoon");
+    const dueToday = () => $(card).removeClass("dueSoon future overdue").addClass("dueToday");
+    const overdue = () => $(card).removeClass("dueSoon dueToday future").addClass("overdue");
 
-    // PREVIOUS YEAR
-    if (dueObject == todayObject) {
+// avoid color code for "done" items
+    if (task.status == "Completed") {
+        return;
+// SAME DAY ASSESSMENT 
+    } else if (dueObject == todayObject) {
         dueToday();
+// YEAR ASSESSMENT
+    // previous year
     } else if ((dy - ty) < 0) {
         overdue();
-    // DISTANT YEAR
+    // distant year
     } else if ((dy - ty) > 1) {
         future();
-
-    // NEXT YEAR
+    // next year
     } else if ((dy - ty) == 1) {
-
         // DEC -> JAN
         if ((dm == 1) && (tm == 12)) {
             // 30th -> 1st || 31st -> 2nd
-            if (((td >= 30) && (dd == 1)) 
+            if (((td >= 30) && (dd == 1))
                 || ((td == 31) && (dd <= 2))) {
                 dueSoon();
             } else {
                 future();
             };
         };
-
-    // THIS YEAR
-    } else { // dy - ty = 0...same year, move on to months
-
-        // PREVIOUS MONTH
+    // this year
+    } else { 
+// MONTH ASSESSMENT
+        // previous month
         if (dm < tm) {
             overdue();
 
-            // NEXT MONTH
+        // next month
         } else if (dm == (tm + 1)) {
             "one month apart...check for dates"
 
-            // THIS MONTH
+        // this month
         } else if (dm == tm) {
-            //PREVIOUS DAY
+// DAY ASSESSMENT
+            // previous day
             if ((dd - td) <= 0) {
                 overdue();
+            // within next 2 days
             } else if (((dd - td) <= 2) && ((dd - td) > 0)) {
                 dueSoon();
-                // DISTANT MONTH
+            // more than 2 days
             } else {
                 future();
             };
-
         };
+    };
+};
 
+    // DONE: create a function to render the task list and make cards draggable
+    function renderTaskList() {
+        let tasksJSON = localStorage.getItem("tasks")
+        tasksArr = JSON.parse(tasksJSON);
+        for (let i = 0; i < tasksArr.length; i++) {
+            const task = tasksArr[i];
+            if (task === null) {
+                console.log("deleted task")
+            } else {
+                createTaskCard(task);
+            }
+        };
+        handleDrag();
     };
 
-        // DONE: create a function to render the task list and make cards draggable
-        function renderTaskList() {
-            let tasksJSON = localStorage.getItem("tasks")
-            tasksArr = JSON.parse(tasksJSON);
-            for (let i = 0; i < tasksArr.length; i++) {
-                const task = tasksArr[i];
-                if (task === null) {
-                    console.log("deleted task")
-                } else {
-                    createTaskCard(task);
-                }
-            };
-            handleDrag();
-        };
-
-        function handleDrag() {
-            $(".draggable").draggable();
-        };
+    function handleDrag() {
+        $(".draggable").draggable();
+    };
 
 
-        // DONE: create a function to handle deleting a task
-        function handleDeleteTask(event) {
-            let deleteId = event.target.getAttribute("taskId");
-            let deleteEl = document.getElementById(`taskCard${deleteId}`);
-            deleteEl.remove();
-            removeFromStoredArray(deleteId);
-        };
+    // DONE: create a function to handle deleting a task
+    function handleDeleteTask(event) {
+        let deleteId = event.target.getAttribute("taskId");
+        let deleteEl = document.getElementById(`taskCard${deleteId}`);
+        deleteEl.remove();
+        removeFromStoredArray(deleteId);
+    };
 
-        const removeFromStoredArray = (deleteId) => {
-            let tasksJSON = localStorage.getItem("tasks")
-            tasksArr = JSON.parse(tasksJSON);
-            delete tasksArr[deleteId];
-            tasksJSON = JSON.stringify(tasksArr);
-            localStorage.setItem("tasks", tasksJSON);
-        };
-
-
-        // Todo: create a function to handle dropping a task into a new status lane
-        function handleDrop(event, draggable) { // handle MOVE
+    const removeFromStoredArray = (deleteId) => {
+        let tasksJSON = localStorage.getItem("tasks")
+        tasksArr = JSON.parse(tasksJSON);
+        delete tasksArr[deleteId];
+        tasksJSON = JSON.stringify(tasksArr);
+        localStorage.setItem("tasks", tasksJSON);
+    };
 
 
-            //update status of task
-            // ${task.status}
-        };
+    // Todo: create a function to handle dropping a task into a new status lane
+    function handleDrop(event, draggable) { // handle MOVE
 
-        // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-        $(document).ready(function () {
-            renderTaskList();
-            taskSubmitBtn.addEventListener("click", composeTask);
-            $(".droppable").droppable({ tolerance: "fit" });
-            // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
 
-        });
+        //update status of task
+        // ${task.status}
+    };
+
+    // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+    $(document).ready(function () {
+        renderTaskList();
+        taskSubmitBtn.addEventListener("click", composeTask);
+        $(".droppable").droppable({ tolerance: "fit" });
+        // $(".droppable").on("drop", handleDrop("mouseup", ".draggable"));
+
+    });
 
 
 
-        dayjs().format();
-
+    dayjs().format();
