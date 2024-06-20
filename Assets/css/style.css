@@ -17,17 +17,21 @@ body {
 }
 
 .future {
-
+ background-color: white;
+ color: black;
 }
 
 .dueSoon {
-
+background-color: #ffc107;
+color: black;
 }
 
 .dueToday{
-
+background-color: salmon;
+color: red;
 }
 
 .overdue{
-  
+background-color: darkred;
+color: antiquewhite;
 }
